@@ -137,11 +137,12 @@ export default async function FreelancerDashboardPage() {
                         </td>
                         <td className="px-6 py-4">
                           <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                            task?.status === "completed" ? "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400" :
                             proposal.status === "accepted" ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400" :
                             proposal.status === "rejected" ? "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400" :
                             "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400"
                           }`}>
-                            {proposal.status.toUpperCase()}
+                            {task?.status === "completed" ? "COMPLETED" : proposal.status.toUpperCase()}
                           </span>
                         </td>
                         <td className="px-6 py-4 text-gray-600 dark:text-gray-300 font-medium">
