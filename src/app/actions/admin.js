@@ -10,10 +10,20 @@ export async function toggleUserBlockAction(email, isBlocked) {
     await requireRole("admin");
     const db = await getDb();
     
+    const nextStatus = !isBlocked;
+
     await db.collection("user").updateOne(
       { email },
-      { $set: { isBlocked: !isBlocked } }
+      { $set: { isBlocked: nextStatus, banned: nextStatus, banReason: nextStatus ? "Blocked by admin" : null } }
     );
+
+    // If we are blocking the user, we should also delete their active sessions
+    if (nextStatus) {
+      const targetUser = await db.collection("user").findOne({ email });
+      if (targetUser) {
+        await db.collection("session").deleteMany({ userId: targetUser._id.toString() });
+      }
+    }
 
     revalidatePath("/dashboard/admin/users");
     return { success: true };

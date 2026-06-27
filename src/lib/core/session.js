@@ -24,6 +24,10 @@ export const requireRole = async (role) => {
     redirect("/login");
   }
 
+  if (user.isBlocked || user.banned) {
+    redirect("/login?error=blocked");
+  }
+
   let userRole = (user?.role || user?.initialRole || "client").toLowerCase();
   if (userRole === "user") userRole = "client";
 
