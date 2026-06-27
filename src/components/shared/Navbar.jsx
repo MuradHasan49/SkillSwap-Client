@@ -1,22 +1,22 @@
 import {
-    Activity,
-    CalendarCheck2,
-    ChevronDown,
-    Dumbbell,
-    GraduationCap,
-    Heart,
-    LayoutDashboard,
-    LogOut,
-    Menu,
-    MessageSquareText,
-    Search,
-    ShieldCheck,
-    Sparkles,
-    UserRound,
-    Users,
-    WalletCards,
-    BadgeCheck,
-    X,
+  Activity,
+  CalendarCheck2,
+  ChevronDown,
+  Dumbbell,
+  GraduationCap,
+  Heart,
+  LayoutDashboard,
+  LogOut,
+  Menu,
+  MessageSquareText,
+  Search,
+  ShieldCheck,
+  Sparkles,
+  UserRound,
+  Users,
+  WalletCards,
+  BadgeCheck,
+  X,
 } from "lucide-react";
 import { headers } from "next/headers";
 import Link from "next/link";
@@ -69,7 +69,7 @@ const ROLE_DETAILS = {
       { name: "My Proposals", href: "/dashboard/freelancer/proposals", icon: MessageSquareText },
       { name: "Active Projects", href: "/dashboard/freelancer/active-projects", icon: Dumbbell },
       { name: "My Earnings", href: "/dashboard/freelancer/earnings", icon: WalletCards },
-      { name: "Edit Profile", href: "/dashboard/freelancer/profile", icon: UserRound },
+      { name: "View Profile", href: "/dashboard/freelancer/profile", icon: UserRound },
     ],
   },
   client: {
@@ -227,7 +227,7 @@ function AuthActions({ user }) {
 
   return (
     <div className="flex items-center gap-3">
-      <Link 
+      <Link
         href="/login"
         className="text-sm font-bold text-neutral-500 dark:text-neutral-400 hover:text-indigo-600 transition-colors px-2 py-1"
       >
@@ -296,8 +296,8 @@ function MobileMenu({ user }) {
                 </div>
 
                 <div className="pt-4 border-t border-border/50">
-                  <LogoutButton 
-                    className="flex w-full items-center justify-center gap-3 rounded-md px-4 py-3 text-sm font-bold text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors" 
+                  <LogoutButton
+                    className="flex w-full items-center justify-center gap-3 rounded-md px-4 py-3 text-sm font-bold text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors"
                     iconClassName="size-5"
                     showIcon={true}
                   />

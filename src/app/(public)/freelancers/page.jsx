@@ -1,4 +1,5 @@
 import { getFreelancers } from "@/lib/core/users";
+import { getFreelancerRatings } from "@/lib/core/reviews";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Star, MapPin, Briefcase, ChevronRight } from "lucide-react";
@@ -11,6 +12,7 @@ export const metadata = {
 
 export default async function BrowseFreelancersPage() {
   const freelancers = await getFreelancers();
+  const ratingsMap = await getFreelancerRatings();
 
   return (
     <div className="bg-gray-50 dark:bg-slate-900 min-h-screen py-12">
@@ -42,10 +44,16 @@ export default async function BrowseFreelancersPage() {
                   </div>
                   <div>
                     <h3 className="font-bold text-lg text-gray-900 dark:text-white">{freelancer.name}</h3>
-                    <div className="flex items-center text-yellow-500 text-sm font-medium mt-1">
-                      <Star className="w-4 h-4 fill-current mr-1" />
-                      4.9 {/* Hardcoded for now, would be calculated from reviews */}
-                    </div>
+                    {ratingsMap[freelancer.email] ? (
+                      <div className="flex items-center text-yellow-500 text-sm font-medium mt-1">
+                        <Star className="w-4 h-4 fill-current mr-1" />
+                        {ratingsMap[freelancer.email].averageRating} ({ratingsMap[freelancer.email].reviewCount} {ratingsMap[freelancer.email].reviewCount === 1 ? 'review' : 'reviews'})
+                      </div>
+                    ) : (
+                      <div className="flex items-center text-gray-400 text-sm font-medium mt-1">
+                        No reviews yet
+                      </div>
+                    )}
                   </div>
                 </div>
 

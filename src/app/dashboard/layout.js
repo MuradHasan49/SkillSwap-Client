@@ -22,7 +22,7 @@ const ROLE_NAV = {
     { name: "My Proposals", href: "/dashboard/freelancer/proposals", icon: MessageSquareText },
     { name: "Active Projects", href: "/dashboard/freelancer/active-projects", icon: Dumbbell },
     { name: "My Earnings", href: "/dashboard/freelancer/earnings", icon: WalletCards },
-    { name: "Edit Profile", href: "/dashboard/freelancer/profile", icon: UserRound },
+    { name: "View Profile", href: "/dashboard/freelancer/profile", icon: UserRound },
   ],
   admin: [
     { name: "Dashboard", href: "/dashboard/admin", icon: LayoutDashboard },

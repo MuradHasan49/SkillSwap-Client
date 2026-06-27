@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Edit2, Trash2, ExternalLink } from "lucide-react";
 import ClientTaskActions from "./ClientTaskActions";
+import { getClientTaskReviews } from "@/lib/core/reviews";
 
 export const metadata = { title: "My Tasks - SkillSwap" };
 
@@ -15,6 +16,14 @@ export default async function MyTasksPage() {
     .find({ client_email: user.email })
     .sort({ createdAt: -1 })
     .toArray();
+    
+  const reviews = await getClientTaskReviews(user.email);
+  const reviewedTaskIds = new Set(reviews.map(r => r.task_id));
+  
+  const tasksWithReviews = tasks.map(task => ({
+    ...task,
+    hasReviewed: reviewedTaskIds.has(task._id.toString())
+  }));
 
   return (
     <div className="space-y-6">
@@ -69,7 +78,7 @@ export default async function MyTasksPage() {
                     </td>
                     <td className="px-6 py-4 text-right">
                       <ClientTaskActions 
-                        task={JSON.parse(JSON.stringify(task))} 
+                        task={JSON.parse(JSON.stringify(tasksWithReviews.find(t => t._id === task._id)))} 
                       />
                     </td>
                   </tr>

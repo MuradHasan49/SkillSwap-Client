@@ -1,4 +1,5 @@
 import { getFreelancerByEmail } from "@/lib/core/users";
+import { getFreelancerReviews } from "@/lib/core/reviews";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,6 +22,11 @@ export default async function FreelancerProfilePage({ params }) {
   if (!freelancer) {
     notFound();
   }
+
+  const reviews = await getFreelancerReviews(email);
+  const averageRating = reviews.length > 0 
+    ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1)
+    : null;
 
   return (
     <div className="bg-gray-50 dark:bg-slate-900 min-h-screen py-12">
@@ -51,11 +57,17 @@ export default async function FreelancerProfilePage({ params }) {
                   <CheckCircle2 className="w-6 h-6 text-indigo-500" />
                 </h1>
                 <div className="flex flex-wrap items-center gap-4 mt-2 text-sm text-gray-600 dark:text-gray-400">
-                  <span className="flex items-center text-yellow-500 font-semibold">
-                    <Star className="w-4 h-4 fill-current mr-1" /> 4.9 Rating
-                  </span>
+                  {averageRating ? (
+                    <span className="flex items-center text-yellow-500 font-semibold">
+                      <Star className="w-4 h-4 fill-current mr-1" /> {averageRating} Rating ({reviews.length} {reviews.length === 1 ? 'review' : 'reviews'})
+                    </span>
+                  ) : (
+                    <span className="flex items-center text-gray-500 font-semibold">
+                      No ratings yet
+                    </span>
+                  )}
                   <span className="flex items-center">
-                    <Briefcase className="w-4 h-4 mr-1" /> 24 Jobs Completed
+                    <Briefcase className="w-4 h-4 mr-1" /> {reviews.length} Jobs Completed
                   </span>
                 </div>
               </div>
@@ -76,6 +88,40 @@ export default async function FreelancerProfilePage({ params }) {
                   <div className="prose dark:prose-invert max-w-none text-gray-600 dark:text-gray-300">
                     <p className="whitespace-pre-line">{freelancer.bio || "This freelancer hasn't written a bio yet."}</p>
                   </div>
+                </div>
+
+                {/* Testimonials Section */}
+                <div className="pt-8">
+                  <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6 border-b border-gray-100 dark:border-slate-700 pb-2">Client Reviews</h2>
+                  {reviews.length === 0 ? (
+                    <p className="text-gray-500 italic">No reviews yet.</p>
+                  ) : (
+                    <div className="space-y-6">
+                      {reviews.map((review) => (
+                        <div key={review._id} className="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-gray-100 dark:border-slate-700 shadow-sm">
+                          <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-center gap-2 text-yellow-500">
+                              {[1, 2, 3, 4, 5].map((star) => (
+                                <Star
+                                  key={star}
+                                  className={`w-4 h-4 ${star <= review.rating ? "fill-current" : "text-gray-200 dark:text-gray-700"}`}
+                                />
+                              ))}
+                            </div>
+                            <div className="text-sm text-gray-500">
+                              {new Date(review.createdAt).toLocaleDateString()}
+                            </div>
+                          </div>
+                          {review.testimonial && (
+                            <p className="text-gray-700 dark:text-gray-300 italic">"{review.testimonial}"</p>
+                          )}
+                          <div className="mt-4 text-sm font-medium text-gray-600 dark:text-gray-400">
+                            - {review.client_email}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
               

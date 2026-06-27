@@ -5,6 +5,7 @@ import { requireRole } from "@/lib/core/session";
 import { revalidatePath } from "next/cache";
 import { getDb } from "@/lib/db";
 import { ObjectId } from "mongodb";
+import { createReview } from "@/lib/core/reviews";
 
 export async function postTaskAction(formData) {
   try {
@@ -145,5 +146,46 @@ export async function rejectProposalAction(proposalId) {
     return { success: true };
   } catch (e) {
     return { error: e.message || "Failed to reject proposal" };
+  }
+}
+
+export async function submitReviewAction(formData) {
+  try {
+    const user = await requireRole("client");
+    const db = await getDb();
+    
+    const taskId = formData.get("taskId");
+    const rating = parseFloat(formData.get("rating"));
+    const testimonial = formData.get("testimonial");
+    
+    if (!taskId || !rating) return { error: "Missing required fields" };
+    if (rating < 1 || rating > 5) return { error: "Rating must be between 1 and 5" };
+    
+    // Ensure task exists and belongs to client
+    const task = await db.collection("tasks").findOne({ _id: new ObjectId(taskId), client_email: user.email });
+    if (!task) return { error: "Task not found" };
+    if (task.status !== "completed") return { error: "Only completed tasks can be reviewed" };
+    
+    // Find the freelancer who did the task
+    const proposal = await db.collection("proposals").findOne({ task_id: taskId, status: "accepted" });
+    if (!proposal) return { error: "No accepted proposal found for this task" };
+    
+    const freelancer_email = proposal.freelancer_email;
+    
+    await createReview({
+      task_id: taskId,
+      client_email: user.email,
+      freelancer_email,
+      rating,
+      testimonial: testimonial || ""
+    });
+    
+    revalidatePath("/dashboard/client/tasks");
+    revalidatePath("/freelancers");
+    revalidatePath(`/freelancers/${encodeURIComponent(freelancer_email)}`);
+    
+    return { success: true };
+  } catch (e) {
+    return { error: e.message || "Failed to submit review" };
   }
 }
