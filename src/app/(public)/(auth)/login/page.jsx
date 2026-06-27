@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { signIn } from "@/lib/auth-client";
@@ -12,6 +12,16 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("error") === "blocked") {
+        toast.error("Your account has been blocked by an admin.");
+        router.replace("/login");
+      }
+    }
+  }, [router]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,7 +47,12 @@ export default function LoginPage() {
         },
         onError: (ctx) => {
           setIsLoading(false);
-          toast.error(ctx.error.message || "Login failed");
+          const errorMsg = ctx.error.message || "Login failed";
+          if (errorMsg.toLowerCase().includes("ban") || errorMsg.toLowerCase().includes("block") || ctx.error.status === 403) {
+            toast.error("Your account has been blocked by an admin.");
+          } else {
+            toast.error(errorMsg);
+          }
         },
       },
     });
