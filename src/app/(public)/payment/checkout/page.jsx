@@ -20,66 +20,29 @@ export default function PaymentCheckoutPage() {
       return;
     }
 
-    const createSession = async () => {
+    const startCheckout = async () => {
       try {
-        // Get JWT token via better-auth session
-        const sessionRes = await fetch("/api/auth/get-session");
-        const session = await sessionRes.json();
-        console.log("Checkout session:", session);
+        const { processCheckout } = await import("./actions");
+        const result = await processCheckout(proposalId);
         
-        if (!session?.user) {
-          setError("You must be logged in to make a payment.");
+        if (result.error) {
+          setError(result.error);
           setStatus("error");
           return;
         }
 
-        const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:8000";
-
-        // Get JWT token from backend
-        const jwtRes = await fetch(`${serverUrl}/auth/jwt`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({ email: session.user.email, role: session.user.role }),
-        });
-
-        if (!jwtRes.ok) {
-          setError("Authentication failed.");
-          setStatus("error");
-          return;
-        }
-
-        // Create Stripe checkout session
-        const checkoutRes = await fetch(`${serverUrl}/create-checkout-session`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({ proposalId }),
-        });
-
-        if (!checkoutRes.ok) {
-          const data = await checkoutRes.json();
-          setError(data.message || "Failed to create checkout session.");
-          setStatus("error");
-          return;
-        }
-
-        const { url } = await checkoutRes.json();
-
-        // Redirect to Stripe Checkout using the session URL
-        if (url) {
-          window.location.href = url;
+        if (result.url) {
+          window.location.href = result.url;
         } else {
-          throw new Error("No checkout URL returned from server.");
+          throw new Error("No checkout URL returned.");
         }
-
       } catch (err) {
         setError(err.message || "An unexpected error occurred.");
         setStatus("error");
       }
     };
 
-    createSession();
+    startCheckout();
   }, [proposalId]);
 
   if (status === "error") {
