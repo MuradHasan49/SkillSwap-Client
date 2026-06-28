@@ -1,9 +1,8 @@
 <div align="center">
-  <img src="https://via.placeholder.com/150x150.png?text=SkillSwap+Logo" alt="SkillSwap Logo" width="120" />
   <h1>🚀 SkillSwap — Freelance Micro-Task Platform</h1>
   <p><em>A modern, fast, and secure marketplace connecting clients with skilled freelancers for micro-tasks.</em></p>
 
-  [![Live Preview](https://img.shields.io/badge/Live_Preview-View_Website-blue?style=for-the-badge&logo=vercel)](https://taskhive-eight-phi.vercel.app/)
+  [![Live Preview](https://skill-swap-client-kappa.vercel.app/)]
 </div>
 
 ---
@@ -16,16 +15,16 @@ The platform connects people who need quick help with freelancers looking for ea
 ---
 
 ## 🔗 Useful Links
-- **🌍 Live Website:** [TaskHive / SkillSwap](https://taskhive-eight-phi.vercel.app/)
-- **💻 Client (Frontend) Repository:** [skillswap-client](https://github.com/username/skillswap-client)
-- **⚙️ Server (Backend) Repository:** [skillswap-server](https://github.com/username/skillswap-server)
+- **🌍 Live Website:** [SkillSwap](https://skill-swap-client-kappa.vercel.app/)
+- **💻 Client (Frontend) Repository:** [skillswap-client](https://github.com/MuradHasan49/SkillSwap-Client)
+- **⚙️ Server (Backend) Repository:** [skillswap-server](https://github.com/MuradHasan49/SkillSwap-Server)
 
 ---
 
 ## 🔑 Admin Credentials
 To explore the Admin Dashboard and its management capabilities, you can log in using these credentials:
-- **Email:** `admin1@taskhive.com`
-- **Password:** `admin1@taskhive.com`
+- **Email:** `skillswapadmin@gmail.com`
+- **Password:** `Aa12345678`
 
 > **Note:** The Admin Dashboard allows you to manage users, monitor tasks, and review all Stripe transaction histories.
 
@@ -98,8 +97,8 @@ JWT_SECRET=your_jwt_secret_key
 
 1. **Clone the Repositories**
    ```bash
-   git clone https://github.com/username/skillswap-client.git
-   git clone https://github.com/username/skillswap-server.git
+   git clone https://github.com/MuradHasan49/SkillSwap-Client.git
+   git clone https://github.com/MuradHasan49/SkillSwap-Server.git
    ```
 
 2. **Install Dependencies**
