@@ -28,6 +28,15 @@ To explore the Admin Dashboard and its management capabilities, you can log in u
 
 ---
 
+## 💳 Stripe Testing Credentials
+When making a payment on the checkout page, you can use the following Stripe test card details to simulate a successful transaction:
+- **Card Number:** `4242 4242 4242 4242`
+- **Expiration Date:** Any date in the future (e.g., `12/34`)
+- **CVC:** Any 3-digit number (e.g., `123`)
+- **ZIP/Postal Code:** Any postal code (e.g., `12345`)
+
+---
+
 ## ✨ Best Features
 - **🛡️ Secure & Role-Based Authentication:** Multi-role system (`Client`, `Freelancer`, `Admin`) backed by BetterAuth (Credential + Google OAuth) and JWT cookies.
 - **💳 Integrated Stripe Payments:** Secure, seamless checkout experiences. Clients must pay via Stripe before work officially starts.
