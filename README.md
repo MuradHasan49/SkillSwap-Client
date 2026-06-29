@@ -1,9 +1,7 @@
 <div align="center">
   <h1>🚀 SkillSwap — Freelance Micro-Task Platform</h1>
   <p><em>A modern, fast, and secure marketplace connecting clients with skilled freelancers for micro-tasks.</em></p>
-
-  [![Live Preview](https://skill-swap-client-kappa.vercel.app/)]
-</div>
+  </div>
 
 ---
 
