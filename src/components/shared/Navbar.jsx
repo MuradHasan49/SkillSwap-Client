@@ -115,6 +115,7 @@ function BrandLink() {
     <Link
       href="/"
       className="flex items-center outline-none group"
+      aria-label="SkillSwap Home"
     >
       <Logo className="h-8 sm:h-9 w-auto transition-transform duration-300 group-hover:scale-105" />
     </Link>
