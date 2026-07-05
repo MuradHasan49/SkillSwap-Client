@@ -14,7 +14,7 @@ export default async function EditFreelancerProfilePage() {
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
-      <Link href="/dashboard/freelancer/profile" className="inline-flex items-center text-sm text-gray-500 hover:text-indigo-600 transition-colors">
+      <Link href="/dashboard/freelancer/profile" className="inline-flex items-center text-sm text-gray-500 hover:text-indigo-600 transition-colors" aria-label="Go back to profile page">
         <ArrowLeft className="w-4 h-4 mr-1" /> Back to Profile
       </Link>
       <div>
