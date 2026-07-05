@@ -4,6 +4,7 @@ import { ArrowRight, CalendarDays, DollarSign, Star, Briefcase, Users, TrendingU
 import { getDb } from "@/lib/db";
 import { getUserSession } from "@/lib/core/session";
 import HeroSlider from "@/components/shared/HeroSlider";
+import Image from "next/image";
 
 export const metadata = {
   title: "SkillSwap — Freelance Micro-Task Platform",
@@ -231,8 +232,7 @@ export default async function Home() {
                       <div className="flex items-center gap-4 mb-4">
                         <div className="w-14 h-14 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-2xl font-black text-indigo-600 dark:text-indigo-400 shrink-0 overflow-hidden">
                           {freelancer.image ? (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img src={freelancer.image} alt={freelancer.name} className="w-full h-full object-cover rounded-full" referrerPolicy="no-referrer" />
+                            <Image src={freelancer.image} alt={freelancer.name} width={56} height={56} className="w-full h-full object-cover rounded-full" referrerPolicy="no-referrer" />
                           ) : (
                             (freelancer.name || "F").charAt(0).toUpperCase()
                           )}
