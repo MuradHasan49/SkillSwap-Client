@@ -34,6 +34,7 @@ export default function HeroSlider() {
             src={src}
             alt={`Hero background ${index + 1}`}
             fill
+            sizes="100vw"
             priority={index === 0}
             className="object-cover"
           />

@@ -9,7 +9,7 @@ export async function toggleUserBlockAction(email, isBlocked) {
   try {
     await requireRole("admin");
     const db = await getDb();
-    
+
     const nextStatus = !isBlocked;
 
     await db.collection("user").updateOne(
@@ -36,7 +36,7 @@ export async function deleteAnyTaskAction(taskId) {
   try {
     await requireRole("admin");
     const db = await getDb();
-    
+
     await db.collection("tasks").deleteOne({ _id: new ObjectId(taskId) });
     // Cleanup associated proposals
     await db.collection("proposals").deleteMany({ task_id: taskId });
