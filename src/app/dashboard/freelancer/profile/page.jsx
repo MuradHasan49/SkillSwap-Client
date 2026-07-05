@@ -30,7 +30,7 @@ export default async function FreelancerProfileViewPage() {
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">My Profile</h2>
           <p className="text-gray-500 dark:text-gray-400">View how clients see your profile.</p>
         </div>
-        <Link href="/dashboard/freelancer/profile/edit">
+        <Link href="/dashboard/freelancer/profile/edit" aria-label="Edit your freelancer profile">
           <Button className="bg-indigo-600 hover:bg-indigo-700">
             <Edit2 className="w-4 h-4 mr-2" /> Edit Profile
           </Button>
@@ -44,7 +44,7 @@ export default async function FreelancerProfileViewPage() {
           <div className="flex flex-col md:flex-row gap-6 md:items-end -mt-16 mb-6">
             <div className="w-32 h-32 rounded-full border-4 border-white dark:border-slate-800 bg-white dark:bg-slate-700 overflow-hidden shadow-lg flex-shrink-0">
               {userData.image ? (
-                <Image src={userData.image} alt={userData.name} width={128} height={128} className="w-full h-full object-cover" />
+                <Image src={userData.image} alt={userData.name} width={128} height={128} quality={90} className="w-full h-full object-cover" />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-4xl font-bold text-gray-400 bg-gray-100 dark:bg-slate-800">
                   {userData.name?.charAt(0) || "U"}
