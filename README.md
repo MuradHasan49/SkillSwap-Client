@@ -122,7 +122,7 @@ JWT_SECRET=your_jwt_secret_key
 4. **Start the Development Servers**
    - In the Server terminal:
      ```bash
-     npm run dev  # or node index.js
+     npm run dev  
      ```
    - In the Client terminal:
      ```bash
