@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>🚀 SkillSwap — Freelance Micro-Task Platform by MHS</h1>
+  <h1>🚀 SkillSwap — Freelance Micro-Task Platform</h1>
   <p><em>A modern, fast, and secure marketplace connecting clients with skilled freelancers for micro-tasks.</em></p>
   </div>
 
@@ -131,3 +131,8 @@ JWT_SECRET=your_jwt_secret_key
 
 5. **Open your Browser**
    Navigate to `http://localhost:3000` to view the application!
+
+---
+<div align="center">
+  <p>Created with ❤️ by MHS</p>
+</div>
