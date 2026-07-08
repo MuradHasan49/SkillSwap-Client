@@ -136,3 +136,4 @@ JWT_SECRET=your_jwt_secret_key
 <div align="center">
   <p>Created with ❤️ by MHS</p>
 </div>
+---
