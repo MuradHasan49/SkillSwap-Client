@@ -349,3 +349,5 @@ export async function Navbar() {
     </header>
   );
 }
+
+// end Navbar 
